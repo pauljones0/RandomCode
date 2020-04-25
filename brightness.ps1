@@ -1,13 +1,18 @@
+$low = 80
+$high = 100
+$sleepseconds = 5
+
 while($true){ #forever loop
-for ($i = 100; $i -gt 1; $i--)
+for ($i = $high; $i -ge $low; $i--)
 {
 (Get-WmiObject -Namespace root/WMI -Class WmiMonitorBrightnessMethods).WmiSetBrightness(1,$i) #makes the screen brighter
-Start-Sleep -m 250 #takes 250 millisecond breaks
+Start-Sleep -m 200 #takes 200 millisecond breaks
 }
-for ($i = 1; $i -lt 100; $i++)
+Start-Sleep -s $sleepseconds
+for ($i = $low; $i -le $high; $i++)
 {
 (Get-WmiObject -Namespace root/WMI -Class WmiMonitorBrightnessMethods).WmiSetBrightness(1,$i) #dims the screen
-Start-Sleep -m 250
+Start-Sleep -m 200
 }
-Start-Sleep -s 30 #does nothing for 30 seconds
+Start-Sleep -s $sleepseconds
 }
