@@ -1,5 +1,11 @@
+$minTimePlay = 5
+$maxTimePlay = 15
+
+$minTimeMute = 30
+$maxTimeMute = 45
+
 	while(1){
-$time = Get-Random -Minimum 1 -Maximum 2
+$time = Get-Random -Minimum $minTimePlay -Maximum $maxTimePlay
 start-sleep -seconds $time
 
 
@@ -9,7 +15,7 @@ start-sleep -seconds $time
 cmd /c powershell.exe "nircmd.exe mutesysvolume 0"
 
 
-$time = Get-Random -Minimum 1 -Maximum 2
+$time = Get-Random -Minimum $minTimeMute -Maximum $maxTimeMute
 start-sleep -seconds $time
 
 
