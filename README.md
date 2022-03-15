@@ -10,3 +10,5 @@ Midterm-V3.py -A dictionary lookup program I used for a midterm to find approxim
 Handin.py - 7 Shifts coding challenge
 
 Smallprogram1.py - This is me trying to code again. Make small simple things that I know how to make, consistently. I've been crushed by the harder assignments in the later years in my Uni degree and didn't feel like I knew how to code the stuff that I was expected of me, instead scrolling reddit endlessly. This is the first (and hopefully not the last) program that doesn't do much, but allows me to feel accomplished and knowledgable and that I can make things.
+
+imageviewer.pynb - Allows you to view images from a url, and view all associated metadata.
