@@ -12,3 +12,5 @@ Handin.py - 7 Shifts coding challenge
 Smallprogram1.py - This is me trying to code again. Make small simple things that I know how to make, consistently. I've been crushed by the harder assignments in the later years in my Uni degree and didn't feel like I knew how to code the stuff that I was expected of me, instead scrolling reddit endlessly. This is the first (and hopefully not the last) program that doesn't do much, but allows me to feel accomplished and knowledgable and that I can make things.
 
 imageviewer.pynb - Allows you to view images from a url, and view all associated metadata.
+
+RGB cycler - Razer Chroma works with Lifx and Hue, but the implementations aren't very well done, with obvious banding between transitions. This code allows you to do a synchronous RGB cycle with Lifx AND hue bulbs. TODO add Twinkly AND grovee API too
