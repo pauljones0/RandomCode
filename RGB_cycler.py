@@ -2,7 +2,6 @@ import sys
 from phue import Bridge
 from lifxlan import LifxLAN
 
-
 def main():
     
     #setup phillips hue and initialize the bridge
