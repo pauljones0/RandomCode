@@ -1,7 +1,7 @@
 import sys
 from phue import Bridge
 from lifxlan import LifxLAN
-from requests import put
+import requests
 from math import fabs, fmod,floor
 
 def main():
