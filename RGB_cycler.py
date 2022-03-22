@@ -1,4 +1,5 @@
 import sys
+from time import sleep
 from phue import Bridge
 from lifxlan import LifxLAN
 import requests
