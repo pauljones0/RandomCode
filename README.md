@@ -15,4 +15,6 @@ imageviewer.pynb - Allows you to view images from a url, and view all associated
 
 RGBcycler.py - Razer Chroma works with Lifx and Hue, but the implementations aren't very well done, with obvious banding between transitions. This code allows you to do a synchronous RGB cycle with Lifx AND hue bulbs. TODO add Twinkly AND grovee API too
 
-color_convert.c -Converts from HSV to RGB 8bit, outputting a python-like list. This is used to help make RGBcycler.py work with Grovee API lights, as Grovee only accepts RGB values. May plan to write this in python in the future
+color_convert.c -Converts from 360 degree HSV to RGB 8bit, outputting a python-like list. This is used to help make RGBcycler.py work with Grovee API lights, as Grovee only accepts RGB values. May plan to write this in python in the future
+
+16bitHSV_to_RGB.py - Converts 16bit HSV value to RGB, assuming that one is doing a RGB cycle (max saturation and brightness) and outputs list.
