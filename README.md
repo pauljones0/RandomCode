@@ -13,8 +13,8 @@ Smallprogram1.py - This is me trying to code again. Make small simple things tha
 
 imageviewer.pynb - Allows you to view images from a url, and view all associated metadata.
 
-RGBcycler.py - Razer Chroma works with Lifx and Hue, but the implementations aren't very well done, with obvious banding between transitions. This code allows you to do a synchronous RGB cycle with Lifx AND hue bulbs. TODO add Twinkly AND grovee API too
+RGBcycler.py - Razer Chroma works with Lifx and Hue, but the implementations aren't very well done, with obvious banding between transitions. This code allows you to do a synchronous RGB cycle with Lifx, hue and grovee bulbs.
 
 color_convert.c -Converts from 360 degree HSV to RGB 8bit, outputting a python-like list. This is used to help make RGBcycler.py work with Grovee API lights, as Grovee only accepts RGB values. May plan to write this in python in the future
 
-16bitHSV_to_RGB.py - Converts 16bit HSV value to RGB, assuming that one is doing a RGB cycle (max saturation and brightness) and outputs list.
+16bitHSV_to_RGB.py - Converts 16bit (2byte) HSV value to 8bit/1byte RGB, assuming that one is doing a RGB cycle (max saturation and brightness) and outputs a list containing the needed number of values, from equidescent locations around the circle.
