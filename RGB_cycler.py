@@ -3,6 +3,7 @@ from phue import Bridge
 from lifxlan import LifxLAN
 import requests
 from math import fabs, fmod,floor
+import keyboard
 
 class GoveeLights:
     def __init__(self, API_KEY):
@@ -28,12 +29,20 @@ class GoveeLights:
         brightness_level = lambda x: {'name': 'brightness', 'value': max(0,min(x,100))}
         answer = requests.put(url=self.URL+'/control', headers=self.HEADERS,json=self.devices[device_index] | {'cmd':brightness_level(value)})
         self.status_check(answer)
+    def color(self, device_index=0,color=[255,255,255]):
+        red,green, blue = [min(255,max(0,x)) for x in color]
+        command = {'cmd':{'name': 'color', 'value': {"r":red,"g":green,"b":blue}}}
+        answer = requests.put(url=self.URL+'/control', headers=self.HEADERS,json=self.devices[device_index] | {'cmd':command})
+        self.status_check(answer)
     def status_check(self,raw):
         message=raw.json()
-        if message['code'] != 200:
-            raise Exception(message['code']+": "+message['message'])
-        else:
-            pass
+        try:
+            if message['code'] != 200:
+                print(message['code']+": "+message['message'])
+            else:
+                pass
+        except:
+            print("Big oh no happened")
     def calc(self,hue):
         X= 1-fabs(fmod(hue/10922.6667,2)-1)
         X= 255 if X==1.0 else floor(X*256)
@@ -47,9 +56,9 @@ class GoveeLights:
         self.status_check(answer)
         
 def main():
-    govee = GoveeLights(APIKEY)
+    govee = GoveeLights(GOVEEAPIKEY)
     #setup phillips hue and initialize the bridge
-    b = Bridge(ip=IPKEY,username=USERNAME)
+    b = Bridge(ip=IPADDRESS,username=HUEAPIKEY)
     lights = b.lights
     
     #setup Lifx bulbs
@@ -69,17 +78,43 @@ def main():
         light.brightness = 254
         light.saturation = 254
         light.on = True # uncomment to turn all lights on
-    
     #loop through
     hue = 0
     while True:
+        if keyboard.is_pressed("esc"):
+            print("esc pressed, ending loop")
+            break
         for light in lights:
             light.hue = hue
         lifx.set_color_all_lights(color=[hue,65535,65535,3500], duration=transitionTime*1000, rapid=True)
         govee.update_hue(0,hue)
         hue = (hue + hueIncrement) % maxHue
         sleep(transitionTime)
-                   
+    next_step=input("What should the lights do next? Off? white? dim?\n").lower()        
+    if next_step == "off":
+        #switch off
+        govee.turn(0,'off')
+        for light in lights:
+            light.on = False
+        lifx.set_power_all_lights("off")
+    elif next_step == 'white':
+        #white at max brightness
+        govee.color(0,[255,255,255])
+        for light in lights:
+            light.brightness = 254
+            light.saturation = 0
+        lifx.set_color_all_lights([40000,0,65535,4000])
+        
+    elif next_step == "dim":
+        #dimlow
+        govee.color(0,[1,1,1])
+        for light in lights:
+            light.brightness = 1
+            light.saturation = 0
+        lifx.set_color_all_lights([40000,0,1,4000])
+        
+    else:
+        print("What you entered doesn't make sense, exiting anyways.")
 if __name__=="__main__":
     main()
     
