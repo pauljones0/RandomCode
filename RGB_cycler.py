@@ -35,8 +35,8 @@ class GoveeLights:
         answer = requests.put(url=self.URL+'/control', headers=self.HEADERS,json=self.devices[device_index] | {'cmd':command})
         self.status_check(answer)
     def status_check(self,raw):
-        message=raw.json()
         try:
+            message=raw.json()
             if message['code'] != 200:
                 print(message['code']+": "+message['message'])
             else:
