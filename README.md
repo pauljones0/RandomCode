@@ -18,3 +18,5 @@ RGBcycler.py - Razer Chroma works with Lifx and Hue, but the implementations are
 color_convert.c -Converts from 360 degree HSV to RGB 8bit, outputting a python-like list. This is used to help make RGBcycler.py work with Grovee API lights, as Grovee only accepts RGB values. May plan to write this in python in the future
 
 16bitHSV_to_RGB.py - Converts 16bit (2byte) HSV value to 8bit/1byte RGB, assuming that one is doing a RGB cycle (max saturation and brightness) and outputs a list containing the needed number of values, from equidescent locations around the circle.
+
+LeetCodeConnect.py - Grabs LeetCode data, and updates your LinkedIn profile with it. Not completely streamlined though, but this does the trick for now. Future updates could include: Speeding up the wait functions to wait for elements to load, then clicking them. AND/OR working this so it can run in a dockerfile/Kubernetes instance, so it can automated and run on the cloud.
