@@ -25,39 +25,21 @@ combined_string = default_string+leetcode_string
 print(combined_string)
 
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-# from webdriver_manager.chrome import ChromeDriverManager
-# from selenium.webdriver import ChromeOptions as ChromeOptions
+from selenium.webdriver.firefox.service import Service
 from webdriver_manager.firefox import GeckoDriverManager
-from selenium.webdriver import FirefoxOptions as FirefoxOptions
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-#options = ChromeOptions()
-options = FirefoxOptions()
-
-#allows firefox to run without showing a graphical interface.
-options.add_argument("--headless")
-#driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),options=options)
-driver= webdriver.Chrome(service=Service(GeckoDriverManager().install()),options=options)
-#For the cookies to work, you need to initially be ON the domain you're adding cookies for.
-#Doing something else will result in an error.
+from selenium.webdriver.support.ui import WebDriverWait
+driver= webdriver.Firefox(service=Service(GeckoDriverManager().install()))
 driver.get("https://www.linkedin.com")
-formatted_cookies={}
 with open('www.linkedin.com.cookies.json') as f:
     linkedincookies = json.load(f)
 for i in linkedincookies:
     driver.add_cookie(i)
-#Go to your linkedIn About section and click Edit. Then copy the URL generated and paste it here.
-driver.get(<LINKEDIN ABOUT EDIT PAGE HERE>)
-driver.implicitly_wait(5)
-#password_locator = driver.locate_with(By.TAG_NAME, "input").below({By.ID: "email"})
-#these sections might be individual to the user, not completely sure, just use the inspect element to find the buttons, then right-click and go "copy XPATH" for this to work
-textarea = driver.find_element(By.XPATH, '//*[@id="multiline-text-form-component-profileEditFormElement-SUMMARY-profile-ACoAACrMZ6EBNDja1YhNynYMasB0eX8VQ4LWTzc-summary"]')
-#Select all and delete old blurb
+driver.get("https://www.linkedin.com/in/paul-jones-969577180/edit/forms/summary/new/?profileFormEntryPoint=PROFILE_SECTION&trackingId=l85%2BWyFQRMW17ic3JgyfWQ%3D%3D")
+
+textarea = WebDriverWait(driver,5).until(lambda d: d.find_element(By.XPATH, '//*[@id="multiline-text-form-component-profileEditFormElement-SUMMARY-profile-ACoAACrMZ6EBNDja1YhNynYMasB0eX8VQ4LWTzc-summary"]'))
 textarea.send_keys(Keys.CONTROL, 'a')
-textarea.send_keys(Keys.BACKSPACE)
 textarea.send_keys(combined_string)
-driver.implicitly_wait(1)
 driver.find_element(By.XPATH, '//*[@id="ember90"]').click()
-driver.implicitly_wait(5)
 driver.quit()
