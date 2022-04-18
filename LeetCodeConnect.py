@@ -21,7 +21,9 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
-driver= webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+options = webdriver.ChromeOptions()
+options.add_argument("--headless")
+driver= webdriver.Chrome(service=Service(ChromeDriverManager().install()),options=options)
 driver.get("https://www.linkedin.com")
 with open('www.linkedin.com.cookies.json') as f:
     linkedincookies = json.load(f)
