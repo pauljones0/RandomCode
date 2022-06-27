@@ -9,8 +9,8 @@ from random import uniform
 #set global variables
 loop=False
 brightness_delta_toggle=False
-HUE_BRIDGE_IP = '192.168.0.46'
-HUE_USERNAME='C96oAnyvobNyGoFqics2hGt91BgGtrhYEqReFT46'
+HUE_BRIDGE_IP = none
+HUE_USERNAME=none
 #my python package is all bunked, so I put this here
 sys.path.append('c:/users/bethe/appdata/local/programs/python/python310/lib/site-packages')
    
