@@ -2,51 +2,46 @@ import unittest
 import re
 
 def Input_Handler(input_string):
-    #Takes in a string as input and outputs a delimited list of strings
+    # Takes in a string as input and outputs a delimited list of strings
     if input_string[:2] != "//":
         delimiter = ','
     else:
         delimiter = input_string[2:input_string.find("\n")]
         input_string = input_string[input_string.find("\n") + 1:]
 
-    input_string = input_string.replace('\n', '') #previously was splitting here, using the built-in string function
-    output_list = re.split('['+ delimiter + ']+', input_string)
-    #this should split anytime it sees a delimiter, resulting in multiple zeros.
-    #Delimiter cannot be a '\n', as that is what is used to find the end of delimiter
-    #Delimiter cannot be '-', as it will break negative numbers apart causing negative numbers to be ignored
-    #and you can't int('-')
-
+    # Remove newlines once instead of splitting
+    input_string = input_string.replace('\n', '')
+    
+    # Use compiled regex pattern for better performance
+    pattern = re.compile('[' + delimiter + ']+')
+    output_list = pattern.split(input_string)
 
     return output_list
 
-
 def Add(numbers):
-    #Takes in a string of delimited integers, passes the list to a helper function
-    #which breaks the string by the delimiter and hands list of strings back
-    #the list is iterated through, empty strings are set to zero, negatives added to
+    # Takes in a string of delimited integers, passes the list to a helper function
+    # which breaks the string by the delimiter and hands list of strings back
+    # the list is iterated through, empty strings are set to zero, negatives added to
     # a list that will be checked for ValueErrors and any positive integers are summed.
     str_list_to_convert = Input_Handler(numbers)
-    int_list_to_sum = []
-    negative_number_list = []
+    running_sum = 0
+    negative_numbers = []
 
+    # Single pass through numbers instead of multiple lists
     for num_as_str in str_list_to_convert:
-        num_as_int = 0
-        if num_as_str != '':
-            num_as_int = int(num_as_str)
+        if not num_as_str:
+            continue
+            
+        num = int(num_as_str)
+        if num < 0:
+            negative_numbers.append(num)
+        elif num <= 1000:
+            running_sum += num
 
-        if num_as_int < 0:
-            negative_number_list.append(num_as_int)
-        elif num_as_int > 1000:
-            pass
-        else:
-            int_list_to_sum.append(num_as_int)
+    if negative_numbers:
+        raise Exception('Negative(s) not allowed: ' + ', '.join(map(str, negative_numbers)))
 
-    if len(negative_number_list) > 0:
-        negative_exception = Exception('Negative(s) not allowed: ' + ', '.join(map(str, negative_number_list)))
-        raise negative_exception
-
-    return sum(int_list_to_sum)
-
+    return running_sum
 
 class TestSum(unittest.TestCase):
 
@@ -75,7 +70,6 @@ class TestSum(unittest.TestCase):
         self.assertEqual(Add("1000, 999, 1001"), 1999, "Testing >1000 input. Should be 1999")
         self.assertEqual(Add("//$e\n1$ 2e 3"), 6, "Testing multiple delimiter")
         self.assertEqual(Add("//$e%\n1$% 2$e% 3"), 6, "Testing multiple, plural delimiter")
-
 
 if __name__ == '__main__':
     unittest.main()
