@@ -1,22 +1,73 @@
-# RandomCode
-Bits and pieces of random code that I make from time-to-time.
+# RandomCode 🚀
 
-Brightness.ps1 - Powershell script, runs in the background in task scheduler and constantly updates the brightness of the screen.
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/pauljones0/RandomCode/graphs/commit-activity)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python](https://img.shields.io/badge/Python-3.6+-blue.svg)](https://www.python.org/downloads/)
+[![C](https://img.shields.io/badge/C-GNU-00599C.svg)](https://gcc.gnu.org/)
+[![PowerShell](https://img.shields.io/badge/PowerShell-5.1+-5391FE.svg)](https://github.com/PowerShell/PowerShell)
 
-Volume.ps1 - I used this to mute my system randomly, as CodeRadio would keep playing and it got overwhelming to have it do so all the time. This uses nircmd.exe to run so make sure you have that installed first. You can choose how many seconds of noise you want and how many second of silence.
+A collection of utility scripts and experimental projects focused on automation and creative coding solutions.
 
-Midterm-V3.py -A dictionary lookup program I used for a midterm to find approximations of a medical sentence quickly and efficiently. It didn't involve the whole course and a ton of data cleaning was required, but it works reasonably well.
+## 🗂️ Projects
 
-Handin.py - 7 Shifts coding challenge
+### 🔆 Smart Home Light Control
+A comprehensive multi-ecosystem light management system supporting Philips Hue, LIFX, and Govee devices.
 
-Smallprogram1.py - This is me trying to code again. Make small simple things that I know how to make, consistently. I've been crushed by the harder assignments in the later years in my Uni degree and didn't feel like I knew how to code the stuff that I was expected of me, instead scrolling reddit endlessly. This is the first (and hopefully not the last) program that doesn't do much, but allows me to feel accomplished and knowledgable and that I can make things.
+**Features:**
+- Cross-platform compatibility with major smart light brands
+- GUI interface for easy control
+- Advanced lighting effects:
+  - RGB color cycling
+  - Synchronized flashing
+  - Breathing patterns
+- Robust error handling and recovery
 
-imageviewer.pynb - Allows you to view images from a url, and view all associated metadata.
+**Location:** `/ColorControlCode/MultiLightHouseLightControlCode/`
 
-RGBcycler.py - Razer Chroma works with Lifx and Hue, but the implementations aren't very well done, with obvious banding between transitions. This code allows you to do a synchronous RGB cycle with Lifx, hue and grovee bulbs.
+### 🖥️ NCURSES DVD Screensaver
+A nostalgic terminal-based animation recreating the classic DVD screensaver.
 
-color_convert.c -Converts from 360 degree HSV to RGB 8bit, outputting a python-like list. This is used to help make RGBcycler.py work with Grovee API lights, as Grovee only accepts RGB values. May plan to write this in python in the future
+**Features:**
+- Smooth bouncing animation
+- Configurable speed and text
+- Terminal-responsive sizing
 
-16bitHSV_to_RGB.py - Converts 16bit (2byte) HSV value to 8bit/1byte RGB, assuming that one is doing a RGB cycle (max saturation and brightness) and outputs a list containing the needed number of values, from equidescent locations around the circle.
+**Location:** `/Experiments/NCURSES_DVD/`
 
-LeetCodeConnect.py - Grabs LeetCode data, and updates your LinkedIn profile with it. Not completely streamlined though, but this does the trick for now. Future updates could include:Making the code run faster with caching and avoiding uneeded values and Working this so it can run in a dockerfile/Kubernetes instance, so it can automated and run on the cloud.
+### 🤖 LinkedIn Automation
+Automated LinkedIn profile updater that syncs with LeetCode statistics.
+
+**Features:**
+- Automatic profile updates
+- LeetCode API integration
+- Headless browser operation
+
+**Location:** `/Experiments/LinkedInUpdatingScript.py`
+
+### 📚 Medical Terminology Parser
+A tool for analyzing and breaking down medical terminology.
+
+**Features:**
+- Comprehensive medical prefix/suffix database
+- Intelligent term separation
+- Detailed meaning analysis
+
+**Location:** `/TrulyRandomCode/USask_Anatomy_Midterm_Assistance_Code.py`
+
+### 🔆 Windows Screen Brightness Control
+PowerShell-based monitor brightness controller with various animation patterns.
+
+**Features:**
+- Multiple animation modes (Fade, Flash, Pulse)
+- Configurable brightness ranges
+- Hidden window operation option
+
+**Location:** `/ColorControlCode/WindowsScreenBrightnessControl.ps1`
+
+## 🛠️ Setup & Requirements
+
+Each project has its own dependencies and requirements. Please refer to the individual project directories for specific setup instructions.
+
+## 📝 License
+MIT License - Feel free to use and modify the code as needed.
+
