@@ -15,9 +15,18 @@ A browser-based utility script for efficiently cleaning up your YouTube Watch La
 
 **Features:**
 - Automated removal of videos from Watch Later playlist
-- Progress tracking with console output
+- Shows hidden/unavailable videos automatically
+- Smart playlist state detection
+- Progress tracking with detailed console output
 - Resilient retry mechanism for UI interactions
-- Safe operation with built-in delays
+- Safe operation with built-in delays and URL validation
+- Rate limiting with automatic 5-minute pauses after every 600 videos
+- Automatic cleanup when navigating away from playlist
+
+**Usage:**
+1. Navigate to your [YouTube Watch Later playlist](https://www.youtube.com/playlist?list=WL)
+2. Open browser DevTools (Press F12 or right-click → Inspect)
+3. Paste the script into the Console tab and press Enter to begin cleanup
 
 **Location:** `/Experiments/removeWatchLater.js`
 
