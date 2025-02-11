@@ -1,5 +1,21 @@
+/**
+ * YouTube Watch Later Playlist Cleaner
+ * A utility script to automatically remove videos from YouTube's Watch Later playlist.
+ * Run this in the browser console while on the Watch Later playlist page.
+ */
+
+/**
+ * Utility function to pause execution for a specified duration
+ * @param {number} ms - Time to sleep in milliseconds
+ * @returns {Promise<void>}
+ */
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
+/**
+ * Recursively removes videos from the Watch Later playlist one by one
+ * @param {number} [count=0] - Counter for tracking the number of videos removed
+ * @returns {Promise<void>}
+ */
 async function removeNextVideo(count = 0) {
   // Select the first video in your Watch Later playlist
   const video = document.querySelector('ytd-playlist-video-renderer');
@@ -50,4 +66,5 @@ async function removeNextVideo(count = 0) {
   removeNextVideo(count);
 }
 
+// Initialize the removal process
 removeNextVideo();

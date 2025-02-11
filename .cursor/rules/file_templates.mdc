@@ -1,0 +1,60 @@
+---
+description: 
+globs: 
+---
+# File Template Rules
+
+When creating new files in this project:
+
+## Python Files
+
+All new Python files (*.py) must include this header:
+
+```python
+# Copyright (c) {year}, bethekind
+# All rights reserved.
+#
+# This source code is licensed under the BSD-style license found in the
+# LICENSE file in the root directory of this source tree.
+
+"""{filename}
+
+{description}
+"""
+
+# Code starts here...
+```
+
+## Examples
+
+Good Python file (`src/fb_marketplace_rss/utils/cache.py`):
+```python
+# Copyright (c) 2024, bethekind
+# All rights reserved.
+#
+# This source code is licensed under the BSD-style license found in the
+# LICENSE file in the root directory of this source tree.
+
+"""cache.py
+
+Implements caching mechanisms for marketplace listings to prevent duplicate processing
+and optimize performance.
+"""
+
+from typing import Dict, Any
+import time
+
+class ListingCache:
+    """Manages temporary storage of processed listings."""
+    def __init__(self):
+        self._cache: Dict[str, Any] = {}
+```
+
+Bad Python file (missing or incomplete header):
+```python
+"""Just a quick cache implementation."""  # DON'T DO THIS
+
+class ListingCache:
+    def __init__(self):
+        self._cache = {}
+``` 

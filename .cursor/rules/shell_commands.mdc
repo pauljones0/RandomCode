@@ -1,0 +1,60 @@
+---
+description: 
+globs: 
+---
+# Shell Command Rules
+
+When executing shell commands in this project:
+
+1. Always use PowerShell syntax and commands
+2. Use proper PowerShell path handling with quotes
+3. Use semicolons (;) for command separation, not &&
+4. Use PowerShell-style parameters (-Path, -Force, etc.)
+5. Follow these standard command mappings:
+
+## Command Examples
+
+Creating directories:
+```powershell
+# DO:
+New-Item -ItemType Directory -Force -Path "path/to/dir"
+
+# DON'T:
+mkdir -p path/to/dir
+```
+
+Moving files:
+```powershell
+# DO:
+Move-Item -Path "source.txt" -Destination "dest/source.txt" -Force
+
+# DON'T:
+mv source.txt dest/source.txt
+```
+
+Multiple commands:
+```powershell
+# DO:
+New-Item -ItemType Directory -Force -Path "dir1"; New-Item -ItemType Directory -Force -Path "dir2"
+
+# DON'T:
+mkdir dir1 && mkdir dir2
+```
+
+Copying files:
+```powershell
+# DO:
+Copy-Item -Path "src/*" -Destination "dest/" -Recurse -Force
+
+# DON'T:
+cp -r src/* dest/
+```
+
+Removing files/directories:
+```powershell
+# DO:
+Remove-Item -Path "temp/" -Recurse -Force
+
+# DON'T:
+rm -rf temp/
+``` 

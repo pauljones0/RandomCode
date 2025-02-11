@@ -1,0 +1,122 @@
+---
+description: 
+globs: 
+---
+ # Cursor Rule: File Structure and Organization
+
+## Rule Description
+Code organization must maintain a logical, predictable structure following standard library best practices. Files should be organized to maximize discoverability and maintainability while minimizing complexity.
+
+## Rationale
+- Ensures consistent and predictable code organization
+- Makes code more discoverable and maintainable
+- Reduces cognitive load when navigating the codebase
+- Follows the principle of least surprise
+- Facilitates standard library compatibility
+
+## Implementation
+
+### File Organization Guidelines
+1. Follow standard library layout conventions:
+   ```
+   project_name/
+   ├── src/
+   │   └── project_name/
+   │       ├── __init__.py
+   │       ├── py.typed  # For type hint support
+   │       ├── core/     # Core functionality
+   │       ├── utils/    # Utility functions
+   │       └── types/    # Type definitions
+   ├── tests/
+   │   └── test_*.py
+   ├── docs/
+   ├── examples/
+   ├── LICENSE
+   ├── README.md
+   ├── pyproject.toml
+   └── setup.cfg
+   ```
+
+2. Module Organization:
+   - One class per file for major components
+   - Related utilities grouped in logical modules
+   - Clear separation of public and internal APIs
+   - Type definitions in dedicated modules
+
+### Directory Structure Rules
+- Maximum nesting depth: 3 levels
+- Each level must provide clear value
+- Related files at same level
+- Follow standard library naming conventions
+
+### Import Organization
+- Absolute imports preferred over relative
+- Import organization follows isort standard:
+  1. Standard library imports
+  2. Third-party imports
+  3. Local application imports
+  4. Type imports
+
+## Examples
+
+✅ Good Structure:
+```
+mylib/
+  src/
+    mylib/
+      __init__.py
+      py.typed
+      core/
+        __init__.py
+        processor.py
+        validator.py
+      utils/
+        __init__.py
+        helpers.py
+      types/
+        __init__.py
+        custom_types.py
+  tests/
+    test_processor.py
+    test_validator.py
+```
+
+❌ Bad Structure:
+```
+mylib/
+  code/
+    src/
+      impl/
+        mylib/
+          processor.py
+    tests/
+      impl/
+        test_processor.py
+```
+
+## Common Anti-patterns to Avoid
+1. Deep nesting without justification
+2. Inconsistent file naming patterns
+3. Mixed public/private interfaces
+4. Non-standard directory structures
+5. Circular dependencies
+6. Missing type information
+7. Implicit dependencies
+
+## Enforcement
+The AI assistant should:
+1. Enforce standard library layout
+2. Maintain consistent file organization
+3. Prevent excessive nesting
+4. Ensure proper import organization
+5. Validate type hint presence
+6. Check for circular dependencies
+7. Verify public API consistency
+
+## Migration Guidelines
+1. Document structural changes
+2. Use deprecation warnings
+3. Maintain backward compatibility
+4. Update all import statements
+5. Verify test coverage
+6. Update documentation

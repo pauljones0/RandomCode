@@ -10,6 +10,17 @@ A collection of utility scripts and experimental projects focused on automation 
 
 ## 🗂️ Projects
 
+### 🎬 YouTube Watch Later Cleaner
+A browser-based utility script for efficiently cleaning up your YouTube Watch Later playlist.
+
+**Features:**
+- Automated removal of videos from Watch Later playlist
+- Progress tracking with console output
+- Resilient retry mechanism for UI interactions
+- Safe operation with built-in delays
+
+**Location:** `/Experiments/removeWatchLater.js`
+
 ### 🔆 Smart Home Light Control
 A comprehensive multi-ecosystem light management system supporting Philips Hue, LIFX, and Govee devices.
 

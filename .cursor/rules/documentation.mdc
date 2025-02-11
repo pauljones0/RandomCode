@@ -1,0 +1,41 @@
+---
+description: 
+globs: 
+---
+# Documentation Rules
+
+When writing or modifying code in this project:
+
+1. Every function and class must have a docstring explaining its purpose
+2. Complex logic must include inline comments explaining the reasoning
+3. Implementation decisions and trade-offs must be documented
+4. Comments should focus on 'why' rather than 'what' the code does
+5. Edge cases and potential pitfalls must be documented
+
+## Examples
+
+Good docstring:
+```python
+def process_marketplace_listing(listing_data: dict) -> ListingModel:
+    """Transform raw marketplace listing data into a standardized model.
+    
+    Handles edge cases like missing prices, malformed titles, and ensures
+    consistent data format for database storage.
+    
+    Args:
+        listing_data: Raw dictionary from Facebook Marketplace scraper
+        
+    Returns:
+        ListingModel instance with normalized data
+        
+    Raises:
+        ValidationError: If required fields are missing or malformed
+    """
+```
+
+Good implementation comment:
+```python
+# Using exponential backoff for retries to prevent rate limiting
+# Starting at 1s, doubling up to max 32s between attempts
+retry_delay = min(2 ** attempt * 1.0, 32.0)
+``` 

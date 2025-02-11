@@ -1,0 +1,47 @@
+---
+description: 
+globs: 
+---
+# Code Organization Rules
+
+When organizing code in this project:
+
+1. Maximum file length should be 200 lines of code
+2. Break larger files into logical modules
+3. Use composition over inheritance to split functionality
+4. Each file should have a single responsibility
+5. Follow the established project structure:
+   ```
+   src/fb_marketplace_rss/
+   ├── core/         # Core business logic
+   ├── database/     # Database operations
+   ├── utils/        # Utility functions
+   └── web/          # Web interface
+   ```
+
+## Examples
+
+Good module split:
+```python
+# listings/processor.py
+class ListingProcessor:
+    """Handles listing data processing and validation."""
+    
+# listings/storage.py
+class ListingStorage:
+    """Manages listing persistence and retrieval."""
+    
+# listings/api.py
+class ListingAPI:
+    """Exposes listing operations via HTTP endpoints."""
+```
+
+Bad organization (too many responsibilities):
+```python
+# listings.py - DON'T DO THIS
+class Listings:
+    """Handles everything related to listings (too broad)."""
+    def process(self): pass
+    def store(self): pass
+    def serve_api(self): pass
+``` 

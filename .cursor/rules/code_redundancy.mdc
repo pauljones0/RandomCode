@@ -1,0 +1,100 @@
+---
+description: 
+globs: 
+---
+ # Cursor Rule: Code Redundancy and Cleanup
+
+## Rule Description
+Code files that have been completely refactored, split, or whose functionality has been entirely moved to other files MUST be identified and removed to prevent confusion and maintain a clean codebase.
+
+## Rationale
+- Prevents confusion about which code is current/active
+- Reduces maintenance burden
+- Keeps the codebase clean and manageable
+- Prevents accidental use of outdated code
+- Makes the project structure clearer
+
+## Implementation
+
+### Redundancy Check Process
+1. Before deleting any file, verify that:
+   - All functionality has been moved/refactored
+   - No unique functionality remains
+   - New files are properly tested
+   - All imports have been updated
+   - Documentation reflects the new structure
+
+### Cleanup Guidelines
+1. When refactoring code:
+   - Track which parts have been moved and where
+   - Maintain a checklist of transferred functionality
+   - Verify all tests pass with new structure
+   - Only delete original file when 100% migrated
+
+2. When splitting files:
+   - Document where each component was moved
+   - Update all references and imports
+   - Remove original file after verification
+
+### Standard Library Compliance
+1. Follow the principle of least astonishment
+2. Maintain backward compatibility when possible
+3. Use deprecation warnings before removal
+4. Document all breaking changes
+
+## Examples
+
+### Scenario 1: Complete Migration
+✅ Good:
+```python
+# Old: monolith.py (to be deleted)
+class UserManager:
+    def create_user(): pass
+    def delete_user(): pass
+
+# New: user_management.py
+class UserManager:
+    """Handles user management operations.
+    
+    Note: Migrated from monolith.py as part of code cleanup.
+    """
+    def create_user(): pass
+    def delete_user(): pass
+```
+
+### Scenario 2: Partial Migration (Keep Original)
+❌ Bad to Delete:
+```python
+# Original: utils.py
+def helper1(): pass  # Moved to new_utils.py
+def helper2(): pass  # Not yet migrated
+
+# New: new_utils.py
+def helper1(): pass
+```
+
+## Verification Checklist
+Before deleting a file, verify:
+- [ ] All functionality is preserved elsewhere
+- [ ] All tests have been migrated and pass
+- [ ] Documentation has been updated
+- [ ] No references to the old file remain
+- [ ] The team has been notified (if applicable)
+- [ ] Deprecation warnings have been in place for one release cycle
+
+## Enforcement
+The AI assistant should:
+1. Track code movements during refactoring
+2. Maintain a list of migrated functionality
+3. Verify completeness before suggesting deletion
+4. Warn about partial migrations
+5. Prevent premature deletion of files with unique code
+6. Enforce standard library compatibility
+7. Require deprecation cycles for public APIs
+
+## Recovery Plan
+1. Keep version control history
+2. Document major refactoring changes
+3. Maintain clear commit messages about file deletions
+4. Consider temporary backups for significant changes
+5. Maintain a changelog of all breaking changes
