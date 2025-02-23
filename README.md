@@ -84,6 +84,45 @@ PowerShell-based monitor brightness controller with various animation patterns.
 
 **Location:** `/ColorControlCode/WindowsScreenBrightnessControl.ps1`
 
+### 📊 Financial Analysis Practice
+A collection of scripts exploring financial concepts and data visualization while working through University of Chicago's program materials.
+
+**Programs:**
+1. **Stock Analysis Tool** (`financial_analysis.py`)
+   - Interactive GUI application for analyzing stock performance
+   - Features:
+     - Real-time stock data fetching via yfinance API
+     - Dynamic P/E ratio calculation and visualization
+     - EPS (Earnings Per Share) history tracking
+     - Moving average calculations
+     - Interactive plots with price trends
+     - Customizable time period selection (1mo to 5y)
+     - Professional-grade visualizations using matplotlib and seaborn
+     - Loading animations and error handling
+     - Responsive modern UI design
+
+2. **Financial Calculator** (`financial_calculator.py`)
+   - Command-line calculator for fundamental financial computations
+   - Features:
+     - Future Value (FV) calculations
+     - Present Value (PV) calculations
+     - Annuity payment computations
+     - Robust error handling for invalid inputs
+     - Clear documentation of financial formulas
+     - Interactive user prompts for inputs
+
+**Learning Focus:**
+- Financial mathematics implementation
+- Data visualization best practices
+- Market analysis methodologies
+- Statistical modeling
+- API integration for financial data
+- GUI development with tkinter
+- Error handling and user experience
+- Real-time data processing
+
+**Location:** `/financial_practice/`
+
 ## 🛠️ Setup & Requirements
 
 Each project has its own dependencies and requirements. Please refer to the individual project directories for specific setup instructions.
