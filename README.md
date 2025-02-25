@@ -111,6 +111,19 @@ A collection of scripts exploring financial concepts and data visualization whil
      - Clear documentation of financial formulas
      - Interactive user prompts for inputs
 
+3. **Trading Strategy Backtester** (`backtesting.py`)
+   - Comprehensive framework for evaluating trading strategies
+   - Features:
+     - Vectorized backtesting using VectorBT for efficient performance
+     - Moving Average Crossover strategy implementation
+     - Detailed performance metrics (Sharpe ratio, drawdowns, win rate)
+     - Automated visualization of results with entry/exit points
+     - Benchmark comparison against market indices
+     - Monthly returns heatmaps and drawdown analysis
+     - HTML report generation with QuantStats
+     - Robust error handling and progress tracking
+     - Non-interactive plotting for automation compatibility
+
 **Learning Focus:**
 - Financial mathematics implementation
 - Data visualization best practices
@@ -120,6 +133,7 @@ A collection of scripts exploring financial concepts and data visualization whil
 - GUI development with tkinter
 - Error handling and user experience
 - Real-time data processing
+- Algorithmic trading strategy evaluation
 
 **Location:** `/financial_practice/`
 
