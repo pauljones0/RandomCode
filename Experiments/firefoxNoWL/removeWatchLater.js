@@ -5,15 +5,17 @@
  */
 
 // Add script validation at the start
-if (!window.location.href.match(/youtube\.com\/playlist\?list=WL/)) {
-  console.log('This script only works on YouTube Watch Later playlist page.');
-  // Clean up any existing intervals/observers if they exist
-  if (window.watchLaterCleanupObserver) {
-    window.watchLaterCleanupObserver.disconnect();
-    delete window.watchLaterCleanupObserver;
+(function() {
+  if (!window.location.href.match(/youtube\.com\/playlist\?list=WL/)) {
+    console.log('This script only works on YouTube Watch Later playlist page.');
+    // Clean up any existing intervals/observers if they exist
+    if (window.watchLaterCleanupObserver) {
+      window.watchLaterCleanupObserver.disconnect();
+      delete window.watchLaterCleanupObserver;
+    }
+    return;
   }
-  return;
-}
+})();
 
 /**
  * Utility function to pause execution for a specified duration
