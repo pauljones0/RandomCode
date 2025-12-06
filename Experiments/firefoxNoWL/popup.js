@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const autoRefreshCheckbox = document.getElementById('autoRefresh');
   const breakIntervalSelect = document.getElementById('breakInterval');
   const breakDurationSelect = document.getElementById('breakDuration');
+  const processSpeedInput = document.getElementById('processSpeed');
+  const processSpeedValue = document.getElementById('processSpeedValue');
 
   // Apply tertiary style to Review button initially
   reviewButton.classList.add('tertiary');
@@ -23,11 +25,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   
   // Load settings
   let settings = await browser.storage.local.get('settings').then(result => {
-    return result.settings || {
+    const defaults = {
       autoRefresh: true,
       breakInterval: 600,
-      breakDuration: 5
+      breakDuration: 5,
+      processSpeed: 1.0
     };
+    return { ...defaults, ...(result.settings || {}) };
   });
 
   // Initialize settings UI
@@ -35,6 +39,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   breakIntervalSelect.value = settings.breakInterval;
   if (breakDurationSelect && settings.breakDuration) {
     breakDurationSelect.value = settings.breakDuration;
+  }
+  if (processSpeedInput && settings.processSpeed) {
+    processSpeedInput.value = settings.processSpeed;
+    processSpeedValue.textContent = settings.processSpeed + 's';
   }
 
   // Helper functions for basic UI operations
@@ -128,6 +136,18 @@ document.addEventListener('DOMContentLoaded', async () => {
   breakDurationSelect.addEventListener('change', () => {
     saveSetting('breakDuration', parseInt(breakDurationSelect.value));
   });
+
+  // Update UI immediately on drag
+  processSpeedInput.addEventListener('input', () => {
+    const speed = parseFloat(processSpeedInput.value);
+    processSpeedValue.textContent = speed + 's';
+  });
+
+  // Save only when user releases slider
+  processSpeedInput.addEventListener('change', () => {
+    const speed = parseFloat(processSpeedInput.value);
+    saveSetting('processSpeed', speed);
+  });
   
   // Listen for tab updates
   browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
@@ -148,6 +168,14 @@ document.addEventListener('DOMContentLoaded', async () => {
       updateStatus(message.text, 'error');
       setActiveMode('ready');
       clearActiveCountdown();
+      
+      // If user is not logged in, show the navigate button again but keep status
+      if (message.text.includes('Sign in')) {
+        startButton.classList.add('hidden');
+        stopButton.classList.add('hidden');
+        goToWatchLater.classList.remove('hidden');
+        goToWatchLater.classList.add('highlight');
+      }
     } else if (message.type === 'needsRefresh') {
       const currentCount = message.videosRemoved || videosRemoved;
       

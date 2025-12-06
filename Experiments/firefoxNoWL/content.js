@@ -105,10 +105,10 @@ async function showHiddenVideos() {
   const playlistMenuButton = await findElement([
     // Strategy 1: Icon-based detection - most robust, relies on the 3-dot icon
     findPlaylistMenuButtonByIcon
-  ]);
+  ], 3, 500); // Try 3 times, 500ms delay
 
   if (!playlistMenuButton) {
-    log('Playlist menu button not found', 'error');
+    log('Playlist menu button not found - skipping hidden videos check', 'warning');
     return;
   }
 
@@ -120,13 +120,18 @@ async function showHiddenVideos() {
   const showHiddenOption = await findElement([
     // Strategy: Icon-based detection - relies on the eye icon
     findShowHiddenOptionByIcon
-  ]);
+  ], 3, 200);
 
   if (showHiddenOption) {
     showHiddenOption.click();
     await sleep(500);
+    log('Revealed hidden videos', 'success');
   } else {
-    log('Show hidden videos option not found', 'warning');
+    // If option not found, it likely means there are no hidden videos
+    // Just close the menu and proceed
+    log('No hidden videos found to show', 'success');
+    document.body.click(); // Click away to close menu
+    await sleep(300);
   }
 }
 
@@ -272,21 +277,29 @@ async function removeNextVideo(count = 0, settings) {
   }
 
   menuButton.click();
-  await sleep(300); // Increased from 200ms to give the menu more time to open
+  
+  // Use speed setting or default to 1s
+  const speed = (settings.processSpeed || 1.0) * 1000;
+  // Use a portion of the speed for UI interactions, but keep reasonable minimums
+  const menuDelay = Math.max(50, speed * 0.3);
+  
+  await sleep(menuDelay);
 
   // Try multiple strategies to find the "Remove" option in the video menu, prioritizing icon-based detection
   const removeOption = await findElement([
     // Strategy 1: Icon-based detection - most robust, relies on the garbage icon
-    findRemoveOptionByIcon, 
+    findRemoveOptionByIcon,
     // Strategy 2: ARIA role and position - Fallback if icon detection fails, now targets 3rd child
     () => document.querySelector('ytd-menu-popup-renderer tp-yt-paper-listbox [role="menuitem"]:nth-child(3)'),
-  ], 4, 250); // Increased attempts and delay to give more chance to find the option
+  ], 4, 250);
 
   if (removeOption) {
     removeOption.click();
     count++;
     updateCount(count);
-    await sleep(700); // Increased from 500ms to give YouTube more time to process the removal
+    // Use the remaining speed time for processing, min 150ms
+    const processDelay = Math.max(150, speed * 0.7);
+    await sleep(processDelay);
   } else {
     // If we can't find the remove option, close any open menu by clicking elsewhere
     document.body.click();
@@ -310,13 +323,21 @@ browser.runtime.onMessage.addListener(async (message) => {
       reportError('This script only works on YouTube Watch Later playlist page.');
       return;
     }
+
+    // Check if user is logged in
+    const signInButton = document.querySelector('a[href*="ServiceLogin"], ytd-button-renderer[href*="ServiceLogin"]');
+    if (signInButton) {
+        reportError('Please Sign in to YouTube to use this extension.');
+        return;
+    }
     
     try {
       // Default settings if not provided
       const settings = message.settings || { 
         autoRefresh: true, 
         breakInterval: 600,
-        breakDuration: 5 // Default 5 minutes
+        breakDuration: 5, // Default 5 minutes
+        processSpeed: 1.0
       };
       
       log('Starting to clean your Watch Later playlist...', 'success');
@@ -343,8 +364,9 @@ browser.runtime.onMessage.addListener(async (message) => {
       await removeNextVideo(message.count, message.settings || {
         autoRefresh: true,
         breakInterval: 600,
-        breakDuration: 5
+        breakDuration: 5,
+        processSpeed: message.settings?.processSpeed || 1.0
       });
     }
   }
-}); 
+});

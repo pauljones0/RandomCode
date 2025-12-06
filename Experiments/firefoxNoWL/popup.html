@@ -359,6 +359,21 @@
 
       <div class="setting-group">
         <div class="setting-item">
+          <label for="processSpeed">Removal Speed (seconds)</label>
+          <div class="tooltip">
+            <span class="info-icon">ⓘ</span>
+            <span class="tooltip-text">How long to wait between removing each video. Faster speeds might be less reliable.</span>
+          </div>
+          <span id="processSpeedValue" style="min-width: 30px; text-align: right; margin-right: 8px;">1.0s</span>
+          <input type="range" id="processSpeed" min="0.25" max="5" step="0.25" value="1">
+        </div>
+        <div class="setting-description">
+          Adjust the speed of video removal (0.25s - 5s)
+        </div>
+      </div>
+
+      <div class="setting-group">
+        <div class="setting-item">
           <label for="breakInterval">Break after every</label>
           <select id="breakInterval">
             <option value="300">300</option>
